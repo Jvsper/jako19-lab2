@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>US Geography Quiz</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("button").on("click", gradeQuiz);
+			var score = 0;
+
+			function isFormValid(){
+				let isValid = true;
+				if ($("#q1").val() == ""){
+					isValid = false;
+					$("#validationFdbk").html("Question 1 was not answered");
+				}
+				return isValid;
+			}
+			function gradeQuiz(){
+				$("#validationFdbk").html(""); // reset validation feedback
+
+				if(!isFormValid()){
+					return console.log("Form not valid");
+				}
+
+				//variables
+				score = 0;
+				let q1Response = $("#q1").val().toLowerCase();
+				let q2Response = $("#q2").val();
+				let q4Response = $("input[name=q4]:checked").val();
+
+				//Question 1
+				if(q1Response == "sacramento"){
+					rightAnswer(1);
+				} else {
+					wrongAnswer(1);
+				}
+
+				//Question 2
+				if(q2Response == "mo"){
+					rightAnswer(2);
+				} else {
+					wrongAnswer(2);
+				}
+
+				//Question 3
+				if($("#Jefferson").is(":checked") && $("#Roosevelt").is(":checked") && !$("Jackson").is(":checked")&& !$("#Franklin").is(":checked")){
+					rightAnswer(3);
+				}else {
+					wrongAnswer(3);
+				}
+
+				//Question 4
+				if(q4Response == "Rhode Island") {
+					rightAnswer(4);
+				}else {
+					wrongAnswer(4);
+				}
+
+				$("#totalScore").html('Total Score : ' + score);
+			}
+
+			function rightAnswer(index){
+				$('#q' + index + 'Feedback').html("Correct!");
+				$('#q' + index + 'Feedback').attr("class", "bg-success text-white");
+				$('#markImg' + index + '').html("<img src='img/checkmark.png'>");
+				score += 20;
+			}
+
+			function wrongAnswer(index){
+				$('#q' + index + 'Feedback').html("Incorrectd!");
+				$('#q' + index + 'Feedback').attr("class", "bg-warning text-white");
+				$('#markImg' + index + '').html("<img src='img/xmark.png' alt='xmark'>");
+			}
+		})
+	</script>
+</head>
+<body class="text-center">
+	<h1 class="jumbotron">US Geography Quiz</h1>
+
+
+	<h3><span id="markImg1"></span> What is the capital of California? </h3>
+	<input type="text" id="q1">
+	<br><br>
+	<div id="q1Feedback"></div>
+	<br>
+
+	<h3><span id="markImg2"></span>What is the longest river?</h3>
+	<select id="q2">
+		<option value="">Select One</option>
+		<option value="ms">Mississippi</option>
+		<option value="mo">Missouri</option>
+		<option value="co">Colorado</option>
+		<option value="de">Delaware</option>
+	</select>
+	<br><br>
+	<div id="q2Feedback"></div>
+	<br>
+	<h3><span id="markImg3"></span>What presidents are carved into mount Rushmore?</h3>
+	<input type="checkbox" id="Jaskson"> <label for="Jackson"> A.Jackson </label>
+	<input type="checkbox" id="Franklin"> <label for="Franklin"> A.Franklin </label>
+	<input type="checkbox" id="Jefferson"> <label for="Jefferson"> A.Jefferson </label>
+	<input type="checkbox" id="Roosevelt"> <label for="Roosevelt"> A.Roosevelt </label>
+	<br><br>
+	<div id = "q3Feedback"> </div>
+
+	<br>
+	<h3><span id="markImg4"></span>What is the smalest US state?</h3>
+	<input type="radio" name="q4" id="me" value="Maine"> <lable for="me"> Maine </lable>
+	<input type="radio" name="q4" id="ri" value="Rhode Island"> <lable for="ri"> Rhode Island </lable>
+	<input type="radio" name="q4" id="md" value="Maryland"> <lable for="md"> Maryland </lable>
+	<input type="radio" name="q4" id="de" value="Delaware"> <lable for="de"> Delaware </lable>
+	<div id = "q4Feedback"> </div>
+	<br><br>
+
+	<h3 id="validationFdbk" class="bg-danger text-white"></h3>
+	<button class="btn btn-success"> Submit Quiz </button>
+	<h2 id="totalScore" class="text-info"></h2>
+
+
+
+</body>
+
+
+</html>
+
+
+
+
+
+
+
+

@@ -57,10 +57,12 @@
 				let q4Response = $("input[name=q4]:checked").val();
 				let q6Response = $("#q6").val();
 				let q7Response = String($("#q7").val());
+				let q8Response = $("#q8").val().toLowerCase().split(" ").join("");
 
 				console.log("Q4 Response is " + q4Response)
 				console.log("Q6 Response is " + q6Response)
 				console.log("Q7 Response is " + q7Response)
+				console.log("Q8 Response is " + q8Response)
 				//Question 1
 				if(q1Response == "sacramento"){
 					rightAnswer(1);
@@ -109,6 +111,14 @@
 				}else {
 					wrongAnswer(7);
 				}
+				
+				//Question 8
+				if (q8Response == "donaldtrump"){
+					rightAnswer(8);
+				}else {
+					wrongAnswer(8);
+				}
+
 
 				if (score < 80){
 					$("#totalScore").attr("class", "text-danger");
@@ -133,11 +143,7 @@
 				$('#q' + index + 'Feedback').html("Correct!");
 				$('#q' + index + 'Feedback').attr("class", "bg-success text-white");
 				$('#markImg' + index + '').html("<img src='img/checkmark.png'>");
-				if(index > 5) {
-					score += 12.50;
-				} else {
-					score += 20;
-				}
+				score += 12.50;
 			}
 
 			function wrongAnswer(index){
@@ -199,6 +205,11 @@
 	<h3><span id="markImg7"></span>When did the civil war end?</h3>
 	<input type="date" id="q7">
 	<div id="q7Feedback"></div> 
+	<br><br>
+
+	<h3><span id="markImg"></span>What is the current president's name?</h3>
+	<input type="text" id="q8">
+	<div id="q8Feedback"></div> 
 
 	<br><br>
 	<h3 id="validationFdbk" class="bg-danger text-white"></h3>

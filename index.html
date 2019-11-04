@@ -56,11 +56,11 @@
 				let q2Response = $("#q2").val();
 				let q4Response = $("input[name=q4]:checked").val();
 				let q6Response = $("#q6").val();
-
-				//rangeNumber(q6Response);
+				let q7Response = String($("#q7").val());
 
 				console.log("Q4 Response is " + q4Response)
 				console.log("Q6 Response is " + q6Response)
+				console.log("Q7 Response is " + q7Response)
 				//Question 1
 				if(q1Response == "sacramento"){
 					rightAnswer(1);
@@ -103,16 +103,24 @@
 					wrongAnswer(6);
 				}
 
+				//Question 7
+				if (q7Response == "1865-04-09"){
+					rightAnswer(7);
+				}else {
+					wrongAnswer(7);
+				}
+
 				if (score < 80){
 					$("#totalScore").attr("class", "text-danger");
-					$("#totalScore").html('Total Score : ' + score);
 				} 
 
 				if (score >= 80){
 					$("#validationFdbk").attr("class", "bg-success text-white");
 					$("#validationFdbk").html("Congratulations! You scored above 80!");
+					$("#totalScore").attr("class", "text-success");
 				}
 
+				$("#totalScore").html('Total Score : ' + score);
 
 
 				//$("#totalScore").html('Total Score : ' + score);
@@ -186,8 +194,10 @@
 	<input type="range" id="q6" min="1" max="12" step="1">
 	<div id="slider-range"></div>
 	<div id="q6Feedback"></div> 
+	<br><br>
 
-	<h3><span id="markImg7"></span>How many years is a presidential term?</h3>
+	<h3><span id="markImg7"></span>When did the civil war end?</h3>
+	<input type="date" id="q7">
 	<div id="q7Feedback"></div> 
 
 	<br><br>

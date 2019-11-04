@@ -5,16 +5,32 @@
 	<title>US Geography Quiz</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js" ></script> 
 	<script>
 		$(document).ready(function(){
 			$("button").on("click", gradeQuiz);
+
+			$(".q5Choice").on("click", function(){
+				$(".q5Choice").css("background","");
+				$(this).css("background", "rgb(255, 255, 0)");
+			});
+
+			displayQ4Chocies();
+			function displayQ4Chocies(){
+				let q4ChoicesArray = ["Maine", "Rhode Island", "Maryland", "Delaware"];
+				q4ChoicesArray = _.shuffle(q4ChoicesArray);
+
+				for (let i = 0; i < q4ChoicesArray.length; i++){
+					$("#q4Choices").append('<input type="radio" name="q4" id=' + q4ChoicesArray[i]+ ' value="' + q4ChoicesArray[i]+'"> <label for="' + q4ChoicesArray[i]+ '"> ' + q4ChoicesArray[i]+ '</label>');
+				}
+			}
 			var score = 0;
 
 			function isFormValid(){
 				let isValid = true;
 				if ($("#q1").val() == ""){
 					isValid = false;
-					$("#validationFdbk").html("Question 1 was not answered");
+					$("#validationFdbk").html("Question was not answered");
 				}
 				return isValid;
 			}
@@ -30,6 +46,8 @@
 				let q1Response = $("#q1").val().toLowerCase();
 				let q2Response = $("#q2").val();
 				let q4Response = $("input[name=q4]:checked").val();
+
+				console.log("Q4 Response is " + q4Response)
 
 				//Question 1
 				if(q1Response == "sacramento"){
@@ -58,6 +76,14 @@
 				}else {
 					wrongAnswer(4);
 				}
+
+				//Question 5
+				if($("#seal2").css("background-color") == "rgb(255, 255, 0)") {
+					rightAnswer(5);
+				}else {
+					wrongAnswer(5);
+				}
+
 
 				$("#totalScore").html('Total Score : ' + score);
 			}
@@ -107,14 +133,17 @@
 	<div id = "q3Feedback"> </div>
 
 	<br>
-	<h3><span id="markImg4"></span>What is the smalest US state?</h3>
-	<input type="radio" name="q4" id="me" value="Maine"> <lable for="me"> Maine </lable>
-	<input type="radio" name="q4" id="ri" value="Rhode Island"> <lable for="ri"> Rhode Island </lable>
-	<input type="radio" name="q4" id="md" value="Maryland"> <lable for="md"> Maryland </lable>
-	<input type="radio" name="q4" id="de" value="Delaware"> <lable for="de"> Delaware </lable>
-	<div id = "q4Feedback"> </div>
+	<h3><span id="markImg4"></span>What is the smallest US state?</h3>
+	<div id="q4Choices"></div>
+	<div id="q4Feedback"></div> 
 	<br><br>
 
+	<h3><span id="markImg5"></span>What image is in the Great Seal of the State of California?</h3>
+	<img src="img/seal1.png" alt="Seal 1" class="q5Choice" id="seal1">
+	<img src="img/seal2.png" alt="Seal 2" class="q5Choice" id="seal2">
+	<img src="img/seal3.png" alt="Seal 3" class="q5Choice" id="seal3">
+	<div id = "q5Feedback"></div>
+	<br><br>
 	<h3 id="validationFdbk" class="bg-danger text-white"></h3>
 	<button class="btn btn-success"> Submit Quiz </button>
 	<h2 id="totalScore" class="text-info"></h2>
